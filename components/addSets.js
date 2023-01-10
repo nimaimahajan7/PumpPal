@@ -1,10 +1,14 @@
 import { setStatusBarStyle } from 'expo-status-bar';
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Button} from 'react-native';
+import {StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Button, Keyboard, TouchableWithoutFeedback} from 'react-native';
 
 export default function addExercise(){
 
     return(
+        <TouchableWithoutFeedback onPress={() => {
+            Keyboard.dismiss();
+            console.log('dismissed keyboard')
+        }}>
     <View style={styles.container}>
     <Text style={styles.sets}>ADD SETS</Text>
     <Text style={styles.weight}>WEIGHT</Text>
@@ -21,6 +25,7 @@ export default function addExercise(){
     <Text style={styles.addset}>SAVE SET</Text>
     </TouchableOpacity>
     </View>
+    </TouchableWithoutFeedback>
     )
 
 }

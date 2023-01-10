@@ -1,13 +1,18 @@
 import { setStatusBarStyle } from 'expo-status-bar';
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Button} from 'react-native';
+import {StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Button, Keyboard, TouchableWithoutFeedback} from 'react-native';
 
 export default function addExercise(){
    
     
 
-return (
-<View style={styles.container}>
+return ( 
+    <TouchableWithoutFeedback onPress={() => {
+        Keyboard.dismiss();
+        console.log('dismissed keyboard')
+    }}>
+    <View style={styles.container}>
+   
     <Text style={styles.AAE}>ADD AN EXERCISE</Text>
     <Text style={styles.EN}>Exercise Name: </Text>
     <TextInput 
@@ -15,7 +20,7 @@ return (
     placeholder='e.g. Bench Press'/>
     <Text style={styles.compound}>Is this a compound movement?</Text>
    <View style={{flexDirection: 'row'}}>
-   <TouchableOpacity>
+   <TouchableOpacity >
     <Text style={styles.yes}>YES</Text>
     </TouchableOpacity>
     <TouchableOpacity>
@@ -30,6 +35,7 @@ return (
     <Text style={styles.sets}>ADD SETS</Text>
     </TouchableOpacity>
 </View>
+</TouchableWithoutFeedback>
 );
 }
 
