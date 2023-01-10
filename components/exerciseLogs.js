@@ -3,18 +3,12 @@ import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image} from 'react-n
 import Card from '../shared/card';
 import { globalStyles } from '../styles/global';
 
-export default function Home({ navigation }){
+export default function ExerciseLogs({ navigation }){
     const [workouts, setReviews] = useState([
-        { date: 'December 26, 2022', type: 'Push', setNum: 1, exercise: 'Bench Press', reps: 9, weight: 55, key: '1' },
-        { date: 'December 27, 2022', type: 'Push', setNum: 1, exercise: 'Bench Press', reps: 9, weight: 55, key: '2' },
-        { date: 'December 28, 2022', type: 'Push', setNum: 1, exercise: 'Bench Press', reps: 9, weight: 55, key: '3' },
+        {setNum: 1, exercise: 'Bench Press', reps: 9, weight: 55, key: '1' },
+        {setNum: 1, exercise: 'Incline Press', reps: 9, weight: 55, key: '2' },
+        {setNum: 1, exercise: 'Shoulder Press', reps: 9, weight: 55, key: '3' },
       ]);
-
-      const pressHandler = () => {
-        navigation.navigate('WorkoutOptions')
-      }
-
-
       const renderSeparator = () => {
         return (
           <View
@@ -23,21 +17,25 @@ export default function Home({ navigation }){
         );
       };
     
+       const pressHandler = () => {
+         navigation.navigate('SetLogs')
+       }
+    
       return (
         <View style={globalStyles.container}>
           <FlatList data={workouts} renderItem={({ item }) => (
             <TouchableOpacity>
-              <Card  style={styles.card}>
-                <Text style = {styles.cardTitleText}>{ item.date }</Text>
-                <Text style = {styles.cardText}>{ item.type }</Text>   
+              <View>
+              <Card>
+                <Text style = {styles.cardTitleText}>{item.exercise }</Text>
                 <Text style = {styles.cardText}>Set {item.setNum }: </Text>
-                <Text style = {styles.cardText}>{item.exercise }</Text>
                 <Text style = {styles.cardText}>{item.reps} reps</Text>
                 <Text style = {styles.cardText}>{ item.weight } lbs</Text>
               </Card>
+              </View>
             </TouchableOpacity>
           )} 
-          ListHeaderComponent={()=><View><TouchableOpacity onPress ={pressHandler}>
+          ListHeaderComponent={()=><View><TouchableOpacity  onPress={pressHandler}>
             <Image 
               source={require('./addButton1.png')}
               style = {styles.button}
@@ -45,11 +43,10 @@ export default function Home({ navigation }){
           />
           </TouchableOpacity>
           <View style = {styles.addWorkout}>
-          <Text style = {styles.addWorkoutText}>Add Workout</Text>
+          <Text style = {styles.addWorkoutText}>Add Exercise</Text>
           </View>
           </View>
         }
-          
         ItemSeparatorComponent={renderSeparator}
           />
         </View>
@@ -57,15 +54,13 @@ export default function Home({ navigation }){
 }
 
 const styles = StyleSheet.create({
-  
     cardText: {
-        fontSize: 18,
+        fontSize: 15,
     },
     cardTitleText: {
-        fontSize: 22,
+        fontSize: 18,
         fontWeight: 'bold',
         color: 'black',
-        alignSelf: 'center'
     },
     addWorkout: {
         paddingTop: 10,
