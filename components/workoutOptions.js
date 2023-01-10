@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
-import {MaterialCommunityIcons} from '@expo/vector-icons';
 import CardWO from '../shared/cardWO';
 
-export default function WorkoutOptions(){
+export default function WorkoutOptions({ navigation }){
     const [lift, setLift] = useState([
        {name: 'PUSH', key: '1'},
         {name: 'PULL', key: '2'},
@@ -16,17 +15,20 @@ export default function WorkoutOptions(){
         {name: 'FULL BODY', key: '9'},
     ]);
 
-const pressHandler = (id) => {
-    console.log(id);
-}
+    const pressHandler = () => {
+        navigation.navigate('ExerciseLogs')
+      }
 
 return(
     <View style = {styles.container}>
-    <Text style={styles.title}>What are you hitting today?</Text>
+   
     
-    <FlatList data ={lift} renderItem={({ item }) => (
+    <FlatList 
+    data ={lift}  
+    renderItem={({ item }) => (
+        
         <View style = {styles.content}>
-        <TouchableOpacity style ={styles.liftContainer}>
+        <TouchableOpacity style ={styles.liftContainer} onPress ={pressHandler}>
         <View style = {styles.content1}>
             <CardWO>
                 <Text style={styles.cardText}>{ item.name }</Text> 
@@ -35,7 +37,9 @@ return(
         </TouchableOpacity>
         </View>
         )}
+        ListHeaderComponent={()=><Text style={styles.title}>What are you hitting today?</Text>}
         />
+
         </View>
     )
 }

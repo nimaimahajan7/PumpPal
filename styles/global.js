@@ -12,6 +12,12 @@ export const globalStyles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 20,
   },
+  cardDivider: {
+    height: 1,
+              backgroundColor: '#000000',
+              opacity: 0.2,
+              marginLeft: 10,
+              marginRight: 10,
+  }
 });
