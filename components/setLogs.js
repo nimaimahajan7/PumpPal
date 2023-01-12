@@ -2,13 +2,21 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
 import Card from '../shared/card';
 import { globalStyles } from '../styles/global';
+import AddSetsForm from './addSetsForm';
 
 export default function SetLogs({ navigation }){
-    const [workouts, setReviews] = useState([
-        {setNum: 1, exercise: 'Bench Press', reps: 9, weight: 55, key: '1' },
-        {setNum: 1, exercise: 'Incline Press', reps: 9, weight: 55, key: '2' },
-        {setNum: 1, exercise: 'Shoulder Press', reps: 9, weight: 55, key: '3' },
+    const [workouts, setWorkouts] = useState([
+        {setNum: 1, reps: 9, weight: 55, key: '1' },
+        {setNum: 1, reps: 9, weight: 55, key: '2' },
+        {setNum: 1, reps: 9, weight: 55, key: '3' },
       ]);
+ 
+      const addSet = (set) => {
+        set.key = Math.random().toString();
+        setWorkouts((currentSets) => {
+          return [set, ...currentSets];
+        });
+      }
       const renderSeparator = () => {
         return (
           <View
@@ -17,11 +25,13 @@ export default function SetLogs({ navigation }){
         );
       };
     
-      // const pressHandler = () => {
-      //   navigation.navigate('WorkoutOptions')
-      // }
-    
+       const pressHandler = () => {
+         navigation.navigate('AddSetsForm', {
+          addSet: addSet
+         })
+       }
       return (
+        
         <View style={globalStyles.container}>
           <FlatList data={workouts} renderItem={({ item }) => (
               <Card>
@@ -32,7 +42,7 @@ export default function SetLogs({ navigation }){
                 </View>
               </Card>
           )} 
-          ListHeaderComponent={()=><View><TouchableOpacity>
+          ListHeaderComponent={()=><View><TouchableOpacity onPress ={pressHandler}>
             <Image 
               source={require('./addButton1.png')}
               style = {styles.button}
@@ -42,14 +52,17 @@ export default function SetLogs({ navigation }){
           <View style = {styles.addWorkout}>
           <Text style = {styles.addWorkoutText}>Add Set</Text>
           </View>
+
           </View>
         }
         ItemSeparatorComponent={renderSeparator}
           />
+          
         </View>
+        
       );
 }
-
+ 
 const styles = StyleSheet.create({
     cardText: {
         fontSize: 15,

@@ -19,7 +19,7 @@ export default function App() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="Home" component={HomeStack} options={{
+        <Tab.Screen name="Primary" component={HomeStack} options={{
           color: 'black',
           tabBarLabel: 'Home',
           tabBarLabelStyle: {color: 'black'},
@@ -27,7 +27,7 @@ export default function App() {
             <MaterialCommunityIcons name="home" size={size} />
           ),
         }}/>
-        <Tab.Screen name="Settings" component={SettingsStack} options={{
+        <Tab.Screen name="Secondary" component={SettingsStack} options={{
           color: 'black',
           tabBarLabel: 'Settings',
           tabBarLabelStyle: {color: 'black'},

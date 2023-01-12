@@ -5,8 +5,10 @@ import Home from '../components/home';
 import WorkoutOptions from '../components/workoutOptions';
 import ExerciseLogs from '../components/exerciseLogs';
 import SetLogs from '../components/setLogs';
+import AddExercise from '../components/addExercise';
+import AddSetsForm from '../components/addSetsForm';
 
-const Stack = createNativeStackNavigator();
+const MainStack = createNativeStackNavigator();
 
 const HomeStack = () => {
 
@@ -19,39 +21,53 @@ const HomeStack = () => {
       };
 
     return (
-        <Stack.Navigator>
-        <Stack.Group
+        <MainStack.Navigator>
+        <MainStack.Group
           screenOptions={{ headerStyle: { backgroundColor: 'grey'}, headerTintColor: 'white' }}>
-          <Stack.Screen
+          <MainStack.Screen
             name="Home"
             component={Home}
             options={{
               title: 'PumpPal',
             }}
           />
-          <Stack.Screen
+          <MainStack.Screen
             name="WorkoutOptions"
             component={WorkoutOptions}
             options={{
               title: 'Select type of workout',
             }}
           />
-          <Stack.Screen
+          <MainStack.Screen
             name="ExerciseLogs"
             component={ExerciseLogs}
             options={{
               title: 'Add Exercise Name',
             }}
             />
-            <Stack.Screen
+            <MainStack.Screen
+            name="AddExercise"
+            component={AddExercise}
+            options={{
+              title: 'Add Exercise Information',
+            }}
+            />
+            <MainStack.Screen
             name="SetLogs"
             component={SetLogs}
             options={{
               title: 'Add sets',
             }}
             />
-        </Stack.Group>
-        </Stack.Navigator>
+            <MainStack.Screen
+            name="AddSetsForm"
+            component={AddSetsForm}
+            options={{
+              title: 'Add Set Information',
+            }}
+            />
+        </MainStack.Group>
+        </MainStack.Navigator>
     )
   }
   

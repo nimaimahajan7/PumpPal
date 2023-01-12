@@ -2,41 +2,42 @@ import { setStatusBarStyle } from 'expo-status-bar';
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Button, Keyboard, TouchableWithoutFeedback} from 'react-native';
 
-export default function addExercise(){
+export default function AddExercise({ navigation }){
    
-    
+    const pressHandler = () => {
+        navigation.navigate('SetLogs')
+      }
 
 return ( 
-    <TouchableWithoutFeedback onPress={() => {
-        Keyboard.dismiss();
-        console.log('dismissed keyboard')
-    }}>
-    <View style={styles.container}>
-   
-    <Text style={styles.AAE}>ADD AN EXERCISE</Text>
-    <Text style={styles.EN}>Exercise Name: </Text>
-    <TextInput 
-    style={styles.input}
-    placeholder='e.g. Bench Press'/>
-    <Text style={styles.compound}>Is this a compound movement?</Text>
-   <View style={{flexDirection: 'row'}}>
-   <TouchableOpacity >
-    <Text style={styles.yes}>YES</Text>
-    </TouchableOpacity>
-    <TouchableOpacity>
-    <Text style={styles.no}>NO</Text>
-    </TouchableOpacity>
-    </View>
-    <Text style={styles.rep}>Rep Range: </Text>
-    <TextInput 
-    style={styles.input}
-    placeholder='e.g. 8-12'/>
-    <TouchableOpacity>
-    <Text style={styles.sets}>ADD SETS</Text>
-    </TouchableOpacity>
-</View>
-</TouchableWithoutFeedback>
-);
+        <TouchableWithoutFeedback onPress={() => {
+            Keyboard.dismiss();
+            console.log('dismissed keyboard')
+        }}>
+        <View style={styles.container}>
+            <Text style={styles.AAE}>ADD AN EXERCISE</Text>
+            <Text style={styles.EN}>Exercise Name: </Text>
+                <TextInput 
+                    style={styles.input}
+                    placeholder='e.g. Bench Press'/>
+            <Text style={styles.compound}>Is this a compound movement?</Text>
+            <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity >
+                    <Text style={styles.yes}>YES</Text>
+                </TouchableOpacity>
+            <TouchableOpacity>
+                <Text style={styles.no}>NO</Text>
+            </TouchableOpacity>
+            </View>
+            <Text style={styles.rep}>Rep Range: </Text>
+            <TextInput 
+                style={styles.input}
+                placeholder='e.g. 8-12'/>
+            <TouchableOpacity onPress={pressHandler}>
+                <Text style={styles.sets}>ADD SETS</Text>
+            </TouchableOpacity>
+        </View>
+    </TouchableWithoutFeedback>
+    );
 }
 
 const styles = StyleSheet.create({

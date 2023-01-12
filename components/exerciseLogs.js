@@ -18,7 +18,7 @@ export default function ExerciseLogs({ navigation }){
       };
     
        const pressHandler = () => {
-         navigation.navigate('SetLogs')
+         navigation.navigate('AddExercise')
        }
     
       return (
