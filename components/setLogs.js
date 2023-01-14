@@ -10,13 +10,6 @@ export default function SetLogs({ navigation }){
         {setNum: 1, reps: 9, weight: 55, key: '2' },
         {setNum: 1, reps: 9, weight: 55, key: '3' },
       ]);
- 
-      const addSet = (set) => {
-        set.key = Math.random().toString();
-        setWorkouts((currentSets) => {
-          return [set, ...currentSets];
-        });
-      }
       const renderSeparator = () => {
         return (
           <View
@@ -26,9 +19,7 @@ export default function SetLogs({ navigation }){
       };
     
        const pressHandler = () => {
-         navigation.navigate('AddSetsForm', {
-          addSet: addSet
-         })
+         navigation.navigate('AddSetsForm')
        }
       return (
         

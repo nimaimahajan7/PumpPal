@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Button, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import { Formik } from 'formik';
 
-export default function AddSetsForm(){
+export default function AddSetsForm({ route}){
 
     // const pressHandler = () => {
     //     navigation.navigate('SetLogs')
@@ -12,26 +12,56 @@ export default function AddSetsForm(){
         <TouchableWithoutFeedback onPress={() => {
             Keyboard.dismiss();
         }}>
+            
+        <View style={styles.container}>
+        <Text style={styles.sets}>Add Sets</Text>
+            <Formik 
+                initialValues ={{weight: '', reps: ''}}
+                onSubmit={(values, actions) => {
+                    actions.resetForm();
+                    route.params.addSet(values);
+                    console.log(values);
+                }}
+            >
+                {(props) => (
                     <View>
                         <Text style={styles.weight}>Weight(lbs)</Text>
                         <TextInput 
                             keyboardType='numeric'
                             style={styles.input}
                             placeholder='e.g. 100'
+                            onChangeText={props.handleChange('weight')}
+                            value={props.values.weight}
                         />
                         <Text style={styles.reps}>Reps</Text> 
                         <TextInput 
                             keyboardType='numeric'
                             style={styles.input}
                             placeholder='e.g. 10'
+                            onChangeText={props.handleChange('reps')}
+                            value={props.values.reps}
                         /> 
-                    <TouchableOpacity style={styles.addsetButton} >
+                    <TouchableOpacity style={styles.addsetButton} onPress={props.handleSubmit}>
                         <View style = {styles.buttonText}>
                         <Text style ={{fontWeight: 'bold', fontSize: '25'}}>Save set</Text>
                         </View>
                     </TouchableOpacity>
                     </View>
+                )}
+            </Formik>
+        {/* <Text style={styles.sets}>Add Sets</Text>
+        <Text style={styles.weight}>Weight(lbs)</Text> */}
+        {/* <TextInput 
+            keyboardType='numeric'
+            style={styles.input}
+        //     placeholder='e.g. 100'/> */}
+        {/* // <Text style={styles.reps}>Reps</Text> */}
+        {/* <TextInput 
+        keyboardType='numeric'
+        style={styles.input}
+        placeholder='e.g. 10'/> */}
         
+        </View>
     </TouchableWithoutFeedback>
     )
 
