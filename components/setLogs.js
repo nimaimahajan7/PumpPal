@@ -1,15 +1,29 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
 import Card from '../shared/card';
 import { globalStyles } from '../styles/global';
-import AddSetsForm from './addSetsForm';
+import { db } from '../firebase';
+import { query, collection, onSnapshot} from 'firebase/firestore'
+import { auth } from '../firebase';
+
 
 export default function SetLogs({ navigation }){
-    const [workouts, setWorkouts] = useState([
-        {setNum: 1, reps: 9, weight: 55, key: '1' },
-        {setNum: 1, reps: 9, weight: 55, key: '2' },
-        {setNum: 1, reps: 9, weight: 55, key: '3' },
-      ]);
+    const [workouts, setWorkouts] = useState([]);
+    const [count, setCount] = useState(0);
+
+      useEffect(() => {
+        const userId = auth.currentUser.uid;
+        const q = query(collection(db, `users/${userId}/workouts`));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          let workoutsArr = [];
+          querySnapshot.forEach((doc) => {
+            workoutsArr.push({ ...doc.data(), id: doc.id });
+          });
+          setWorkouts(workoutsArr);
+        });
+        return () => unsubscribe();
+      }, []);
+
       const renderSeparator = () => {
         return (
           <View
@@ -27,7 +41,7 @@ export default function SetLogs({ navigation }){
           <FlatList data={workouts} renderItem={({ item }) => (
               <Card>
                 <View style={{flexDirection: 'row'}}>
-                <Text style = {styles.cardTitleText}>Set {item.setNum }: </Text>
+                {/* <Text style = {styles.cardTitleText}>Set {count }: </Text> */}
                 <Text style = {styles.cardText}>{item.reps} reps</Text>
                 <Text style = {styles.cardText}>{ item.weight } lbs</Text>
                 </View>

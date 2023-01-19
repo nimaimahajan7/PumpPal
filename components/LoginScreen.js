@@ -12,16 +12,6 @@ const LoginScreen = () => {
 
     const navigation = useNavigation()
 
-    // useEffect(() => {
-    //     const unsubscribe = auth.onAuthStateChanged(user => {
-    //         if (user) {
-    //             navigation.navigate("Home");
-    //         }
-    //     })
-
-    //     return unsubscribe
-    //  }, [])
-
     const handleSignUp = () => {
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {

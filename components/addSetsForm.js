@@ -1,13 +1,36 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Button, Keyboard, TouchableWithoutFeedback} from 'react-native';
-import { Formik } from 'formik';
+import App from '../App';
+import { db } from '../firebase';
+import { query, collection, onSnapshot, updateDoc, doc, addDoc, add} from 'firebase/firestore';
+import { auth } from '../firebase';
 
-export default function AddSetsForm(){
+export default function AddSetsForm({ navigation }){
+    const [workouts, setWorkouts] = useState([]);
+    const [repsInput, setRepsInput] = useState('');
+    const [weightInput, setWeightInput] = useState('');
+    const [count, setCount] = useState(0);
 
-    // const pressHandler = () => {
-    //     navigation.navigate('SetLogs')
-    //   }
+    const createWorkout = async (e) => {
+        e.preventDefault(e)
+        if(repsInput === '' || weightInput === ''){
+            alert('Please enter a valid number')
+            return
+        }
+        const userId = auth.currentUser.uid;
+        try {
+            await addDoc(collection(db, `users/${userId}/workouts`), {
+                reps: repsInput,
+                weight: weightInput
+            });
+            setRepsInput('')
+            setWeightInput('')
+            navigation.goBack();
+          } catch (error) {
+            console.log(error);
+          }
 
+    };
     return(
         <TouchableWithoutFeedback onPress={() => {
             Keyboard.dismiss();
@@ -18,14 +41,18 @@ export default function AddSetsForm(){
                             keyboardType='numeric'
                             style={styles.input}
                             placeholder='e.g. 100'
+                            value={weightInput}
+                            onChange={(e)=> setWeightInput(e.nativeEvent.text)}
                         />
                         <Text style={styles.reps}>Reps</Text> 
                         <TextInput 
                             keyboardType='numeric'
                             style={styles.input}
                             placeholder='e.g. 10'
+                            value={repsInput}
+                            onChange={(e)=> setRepsInput(e.nativeEvent.text)}
                         /> 
-                    <TouchableOpacity style={styles.addsetButton} >
+                    <TouchableOpacity style={styles.addsetButton} onPress={createWorkout}>
                         <View style = {styles.buttonText}>
                         <Text style ={{fontWeight: 'bold', fontSize: '25'}}>Save set</Text>
                         </View>
